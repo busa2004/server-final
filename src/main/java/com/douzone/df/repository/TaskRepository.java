@@ -52,7 +52,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
 
 	 @Query("SELECT NEW com.douzone.df.payload.TaskResponse(v.id,v.title,v.content,v.createdAt) FROM Task v "
-		 		+ "WHERE  v.status = ?1 and  v.title LIKE %?2% and v.createdAt >= date(?3) and v.createdAt <= date_format(?4, '%Y-%m-%d %h:%i:%s') ORDER BY v.createdAt DESC")
+		 		+ "WHERE  v.status = ?1 and  v.title LIKE %?2% and v.createdAt >= date(?3) and v.createdAt <= timestamp(?4) ORDER BY v.createdAt DESC")
 	List<TaskResponse> findAllByStatus(Status valueOf, String search, String from, String to);
 
 
