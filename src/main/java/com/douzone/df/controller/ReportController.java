@@ -63,6 +63,7 @@ public class ReportController {
 	 	@PostMapping("/all")
 	    public List<Report> getAllReport(@CurrentUser UserPrincipal currentUser,
 	    		@RequestBody ReportRequest reportRequest) {
+	 		System.out.println(reportRequest);
 	 		return reportService.getUserReport(currentUser.getId(),reportRequest);
 	    }
 	 	//모든 보고서
