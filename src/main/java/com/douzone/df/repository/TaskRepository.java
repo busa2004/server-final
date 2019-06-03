@@ -60,6 +60,15 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
 
 
+	 @Query("SELECT NEW com.douzone.df.payload.TaskResponse(v.id,v.title,v.content,v.createdAt) FROM Task v "
+		 		+ "WHERE  v.status = ?1 and  v.title LIKE %?2% ORDER BY v.createdAt DESC")
+	List<TaskResponse> findAllByStatus(Status valueOf, String search);
+
+
+
+
+
+
 	
 
 

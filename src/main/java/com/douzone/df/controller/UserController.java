@@ -43,7 +43,7 @@ import com.douzone.df.util.AppConstants;
 
 @RestController
 @RequestMapping("/api")
-public class UserController {
+public class UserController implements PasswordEncoder{
 
     @Autowired
     private UserRepository userRepository;
@@ -92,11 +92,20 @@ public class UserController {
         //everything was OK, return HTTP OK status (200) to the client
         return ResponseEntity.ok().build();
     }
+  
+
+   
     @Transactional
     @PostMapping("/user/changePassword")
     public Success changePassword( @RequestBody PasswordChangeRequest request) {
-    	userRepository.changePassword(passwordEncoder.encode(request.getExistPassword()),passwordEncoder.encode(request.getPassword()),request.getId());
-    	Success success = new Success("ok");
+    	Success success;
+    	if(matches(request.getExistPassword(),userRepository.findPassword(request.getId()))) {
+    	userRepository.changePassword(passwordEncoder.encode(request.getPassword()),request.getId());
+    		success = new Success("ok");
+    		return success;
+    	}
+    	
+    	success = new Success("false");
  		return success;
        
     }
@@ -117,8 +126,16 @@ public class UserController {
     @Transactional
     @PostMapping("/user/modify")
     public Success getCurrentUser( @RequestBody User user) {
-    	 user.setPassword(passwordEncoder.encode(user.getPassword()));
-         userRepository.modify(user.getId(),user.getUsername(),user.getName(),user.getEmail(),user.getPassword());
+    	System.out.println(user.getPassword());
+    	 if(user.getPassword() == null || user.getPassword().equals("")) {
+    		 userRepository.modify(user.getId(),user.getUsername(),user.getName(),user.getEmail());
+    		 
+    	 }else {
+    		 user.setPassword(passwordEncoder.encode(user.getPassword()));
+             userRepository.modify(user.getId(),user.getUsername(),user.getName(),user.getEmail(),user.getPassword()); 
+    	 }
+    	
+      
          Success success = new Success("ok");
 	 	return success;
     }
@@ -156,6 +173,16 @@ public class UserController {
 
         return userProfile;
     }
+
+	@Override
+	public String encode(CharSequence rawPassword) {
+		return passwordEncoder.encode(rawPassword);
+	}
+
+	@Override
+	public boolean matches(CharSequence rawPassword, String encodedPassword) {
+		return passwordEncoder.matches(rawPassword, encodedPassword);
+	}
 
 
 

@@ -109,7 +109,12 @@ public class TaskService {
 	}
 
 	public List<TaskResponse> getAllTask(TaskRequest taskRequest) {
-		List<TaskResponse> list = taskRepository.findAllByStatus(Status.valueOf(taskRequest.getStatus()),taskRequest.getSearch(),taskRequest.getFrom(),taskRequest.getTo());
+		List<TaskResponse> list;
+		if(taskRequest.getFrom()==null && taskRequest.getTo()==null) {
+			list = taskRepository.findAllByStatus(Status.valueOf(taskRequest.getStatus()),taskRequest.getSearch());	
+		}else{
+			list = taskRepository.findAllByStatus(Status.valueOf(taskRequest.getStatus()),taskRequest.getSearch(),taskRequest.getFrom(),taskRequest.getTo());
+		}
 		for(int i = 0 ; i < list.size();i++) {
 			list.get(i).setKey(i);
 		}

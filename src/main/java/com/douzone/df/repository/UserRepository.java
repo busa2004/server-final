@@ -36,14 +36,21 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	 @Query("UPDATE User v SET v.profile = ?2 WHERE v.id = ?1")
 	void update(Long id, String profile);
 	 @Modifying
-	 @Query("UPDATE User v SET v.password = ?2 WHERE v.id = ?3 AND v.password = ?1")
-	void changePassword(String existPassword, String password, Long id);
+	 @Query("UPDATE User v SET v.password = ?1 WHERE v.id = ?2")
+	void changePassword(String password, Long id);
 	 @Modifying
 	 @Query("UPDATE User v SET v.username = ?2,v.name =?3 , v.email = ?4, v.password= ?5 WHERE v.id = ?1")
 	void modify(Long id, String username, String name, String email,String password);
 	 @Modifying
 	 @Query("UPDATE User v SET v.slackKey = ?2,v.slackChannel =?3 WHERE v.id = ?1")
 	void slackUpdate(Long id, String slackKey, String slackChannel);
+	 @Modifying
+	 @Query("UPDATE User v SET v.username = ?2,v.name =?3 , v.email = ?4 WHERE v.id = ?1")
+	void modify(Long id, String username, String name, String email);
+	 @Query("SELECT v.password FROM User v WHERE v.id = ?1")
+	String findPassword(Long id);
+	 
+	
 	
 
 }

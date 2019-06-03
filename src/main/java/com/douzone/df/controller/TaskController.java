@@ -32,6 +32,7 @@ public class TaskController {
 	 	
 	 	@PostMapping("/all")
 	    public List<TaskResponse> getAllTask( @RequestBody TaskRequest taskRequest) {
+	 		System.out.println(taskRequest);
 	        return TaskService.getAllTask(taskRequest);
 	    }
 	 	
@@ -58,6 +59,12 @@ public class TaskController {
 	 	@GetMapping("/update")
 	    public void updateTask(@Valid @RequestBody Task taskRequest) {
 	        TaskService.updateTask(taskRequest);
+	    }
+	 	
+	 	@PostMapping("/modify")
+	    public Success modifyTask(@Valid @RequestBody Task taskRequest) {
+	        TaskService.updateTask(taskRequest);
+	        return new Success("ok");
 	    }
 	 	
 	 	@GetMapping("/delete")
