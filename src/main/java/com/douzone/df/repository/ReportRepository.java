@@ -36,14 +36,14 @@ public interface ReportRepository extends JpaRepository<Report, Long> {
 	void update(Long id, Status valueOf,String description);
 	
 	@Query("SELECT v FROM Report v "
-	 		+ "WHERE  v.title LIKE %?1% and v.createdAt >= date(?2) and v.createdAt <= timestamp(?3) and v.userTask.user.id = ?4 ORDER BY v.createdAt DESC")
-	List<Report> findAllById(String search, String from, String to, Long id);
+	 		+ "WHERE  v.title LIKE %?1% and v.createdAt >= date(?2) and v.createdAt <= timestamp(?3) and v.userTask.user.id = ?4 and v.status!= ?5 ORDER BY v.createdAt DESC")
+	List<Report> findAllById(String search, String from, String to, Long id,Status status);
 	@Modifying
 	@Query("UPDATE Report v SET  v.content = ?1 WHERE v.id = ?2")
 	void update(String content, Long id);
 	@Query("SELECT v FROM Report v "
-	 		+ "WHERE  v.title LIKE %?1% and v.createdAt >= date(?2) and v.createdAt <= timestamp(?3) and v.userTask.id =?5 and v.userTask.user.id = ?4 ORDER BY v.createdAt DESC")
-	List<Report> findAllById(String search, String from, String to, Long id, Long taskId);
+	 		+ "WHERE  v.title LIKE %?1% and v.createdAt >= date(?2) and v.createdAt <= timestamp(?3) and v.userTask.id =?5 and v.userTask.user.id = ?4 and v.status!= ?6 ORDER BY v.createdAt DESC")
+	List<Report> findAllById(String search, String from, String to, Long id, Long taskId,Status status);
 	 @Query("SELECT NEW com.douzone.df.payload.ReportResponse(v.id,v.title,v.content,v.userTask.task.title as taskTitle,v.userTask.user.name as userName,v.createdAt,v.status,v.fileName) FROM Report v "
 		 		+ "WHERE  v.status = ?1 and  v.title LIKE %?2% and v.createdAt >= date(?3) and v.createdAt <= timestamp(?4) and v.userTask.task.id = ?5 ORDER BY v.createdAt DESC")
 	List<ReportResponse> findAllByStatus(Status valueOf, String search, String from, String to, Long userTaskId);

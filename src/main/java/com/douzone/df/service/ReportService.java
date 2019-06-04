@@ -76,9 +76,9 @@ public class ReportService {
 	public List<Report> getUserReport(Long id, ReportRequest reportRequest) {
 		List<Report> list;
 		if(reportRequest.getTaskId()!=null) {
-			list = reportRepository.findAllById(reportRequest.getSearch(),reportRequest.getFrom(),reportRequest.getTo(),id,reportRequest.getTaskId());
+			list = reportRepository.findAllById(reportRequest.getSearch(),reportRequest.getFrom(),reportRequest.getTo(),id,reportRequest.getTaskId(),Status.END);
 		}else {
-			list = reportRepository.findAllById(reportRequest.getSearch(),reportRequest.getFrom(),reportRequest.getTo(),id);
+			list = reportRepository.findAllById(reportRequest.getSearch(),reportRequest.getFrom(),reportRequest.getTo(),id,Status.END);
 		}
 	
 		return list;
