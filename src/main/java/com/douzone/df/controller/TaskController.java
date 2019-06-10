@@ -57,7 +57,7 @@ public class TaskController {
 		}	
 		@GetMapping("/test")
 	    public String test(String text){
-			System.out.println(text);
+			 
 			 return text;
 			
 		}	

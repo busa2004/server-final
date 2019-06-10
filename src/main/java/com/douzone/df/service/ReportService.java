@@ -21,6 +21,7 @@ import com.douzone.df.model.Status;
 import com.douzone.df.model.Task;
 import com.douzone.df.model.User;
 import com.douzone.df.model.UserTask;
+import com.douzone.df.payload.GraphResponse;
 import com.douzone.df.payload.ReportConverterRequest;
 import com.douzone.df.payload.ReportRequest;
 import com.douzone.df.payload.ReportResponse;
@@ -107,6 +108,10 @@ public class ReportService {
 	public Slack getSlackInfo(Long reportId) {
 		
 		return reportRepository.slackFindById(reportId);
+	}
+	public List<GraphResponse> getGraph(Long id) {
+		
+		return reportRepository.graphFindById(id);
 	}
 	
 	

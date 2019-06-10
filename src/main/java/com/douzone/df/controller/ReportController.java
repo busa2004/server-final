@@ -31,6 +31,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.douzone.df.model.Report;
 import com.douzone.df.payload.FileUploadResponse;
+import com.douzone.df.payload.GraphResponse;
 import com.douzone.df.payload.ReportConverterRequest;
 import com.douzone.df.payload.ReportRequest;
 import com.douzone.df.payload.ReportResponse;
@@ -146,5 +147,13 @@ public class ReportController {
 	                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
 	                 .body(resource);
 	     }
+	     
+	     	//사용자 보고서 그래프
+		 	@PostMapping("/graph")
+		    public List<GraphResponse> graph(@CurrentUser UserPrincipal currentUser) {
+		 		
+		 		
+		 		return reportService.getGraph(currentUser.getId()); 
+		 	}
 	 	 
 }

@@ -14,6 +14,7 @@ import com.douzone.df.model.Report;
 import com.douzone.df.model.Status;
 import com.douzone.df.model.User;
 import com.douzone.df.model.UserTask;
+import com.douzone.df.payload.GraphResponse;
 import com.douzone.df.payload.ReportResponse;
 import com.douzone.df.payload.Slack;
 
@@ -49,6 +50,9 @@ public interface ReportRepository extends JpaRepository<Report, Long> {
 	List<ReportResponse> findAllByStatus(Status valueOf, String search, String from, String to, Long userTaskId);
 	@Query("SELECT NEW com.douzone.df.payload.Slack(v.userTask.user.slackKey,v.userTask.user.slackChannel) FROM Report v WHERE v.id = ?1")
 	Slack slackFindById(Long reportId);
+
+	@Query("SELECT NEW com.douzone.df.payload.GraphResponse(v.status,count(*) as count) FROM Report v WHERE v.userTask.user.id = ?1 group by v.status")
+	List<GraphResponse> graphFindById(Long id);
 	
 
 
