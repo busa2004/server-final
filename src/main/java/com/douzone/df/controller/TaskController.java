@@ -58,7 +58,7 @@ public class TaskController {
 		@GetMapping("/test")
 	    public Success test( String a){
 			System.out.println(a);
-			 return new Success("ok");
+			 return new Success(a);
 			
 		}	
 	 	@GetMapping("/update")
