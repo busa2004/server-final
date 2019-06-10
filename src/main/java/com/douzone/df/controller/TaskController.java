@@ -56,7 +56,7 @@ public class TaskController {
 	    		 return TaskService.getAllTaskNoPage();
 		}	
 		@GetMapping("/test")
-	    public Success test( String a){
+	    public Success test(@Valid @RequestBody String a){
 			System.out.println(a);
 			 return new Success(a);
 			
