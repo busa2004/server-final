@@ -63,6 +63,13 @@ public class UserTaskController {
 	 		
 	 		return  list;
 	 	}
+	 	@GetMapping("/slack")
+	    public String test(String text){
+	 		List<String> list = UserTaskService.getById(text);
+	 		
+			 return list.get(0);
+			
+		}
 	 	@GetMapping("/test")
 	 	 public List<UserTask> test() {
 	 		

@@ -141,6 +141,10 @@ public class UserTaskService {
 		return userTaskRepository.findByTaskId(taskId);
 	}
 
+	public List<String> getById(String text) {
+		return userTaskRepository.findByUserId(text);
+	}
+
 	
 
 	
