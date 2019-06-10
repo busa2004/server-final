@@ -55,7 +55,11 @@ public class TaskController {
 	    public List<TaskResponse> getAllTask(){
 	    		 return TaskService.getAllTaskNoPage();
 		}	
-	 	
+		@GetMapping("/test")
+	    public void test( String a){
+			System.out.println(a);
+			
+		}	
 	 	@GetMapping("/update")
 	    public void updateTask(@Valid @RequestBody Task taskRequest) {
 	        TaskService.updateTask(taskRequest);
