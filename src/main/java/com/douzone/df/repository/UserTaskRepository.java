@@ -59,7 +59,7 @@ public interface UserTaskRepository extends JpaRepository<UserTask, Long> {
 	 @Query("SELECT v FROM UserTask v WHERE v.task.id = ?1")
 	List<UserTask> findByTaskId(Long taskId);
 
-	 @Query("SELECT v.task.title FROM UserTask v WHERE v.user.username = ?1")
+	 @Query("SELECT v.task.title FROM UserTask v WHERE v.user.username = ?1 AND  v.startDate <= date(now()) AND v.endDate >= date(now())")
 	List<String> findByUserId(String text);
 
 

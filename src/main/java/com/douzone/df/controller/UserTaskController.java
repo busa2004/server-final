@@ -68,7 +68,7 @@ public class UserTaskController {
 	 		List<String> list = UserTaskService.getById(text);
 	 		String output = "";
 	 		for(int i = 0 ; i< list.size(); i++) {
-	 			output.concat(list.get(i)+"\n");
+	 			output=output.concat(list.get(i)+"\n");
 	 		}
 			 return output;
 			
