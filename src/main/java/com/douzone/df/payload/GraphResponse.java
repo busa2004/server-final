@@ -4,20 +4,20 @@ import com.douzone.df.model.Status;
 
 public class GraphResponse {
 	private Status status;  
-	private int count;
+	private Long count;
 	public Status getStatus() {
 		return status;
 	}
 	public void setStatus(Status status) {
 		this.status = status;
 	}
-	public int getCount() {
+	public Long getCount() {
 		return count;
 	}
-	public void setCount(int count) {
+	public void setCount(Long count) {
 		this.count = count;
 	}
-	public GraphResponse(Status status, int count) {
+	public GraphResponse(Status status, Long count) {
 		super();
 		this.status = status;
 		this.count = count;
