@@ -152,8 +152,11 @@ public class ReportController {
 		 	@PostMapping("/graph")
 		    public List<GraphResponse> graph(@CurrentUser UserPrincipal currentUser) {
 		 		
-		 		
-		 		return reportService.getGraph(currentUser.getId()); 
+		 		 List<GraphResponse> list;
+		 	
+		 	 list = reportService.getGraph(currentUser.getId());
+		 
+		 	 return list;
 		 	}
 	 	 
 }

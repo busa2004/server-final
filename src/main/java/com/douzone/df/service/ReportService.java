@@ -111,7 +111,7 @@ public class ReportService {
 	}
 	public List<GraphResponse> getGraph(Long id) {
 		
-		return reportRepository.graphFindById(id);
+		return reportRepository.graphFindById(id,Status.WAIT,Status.END);
 	}
 	
 	

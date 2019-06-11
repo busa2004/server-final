@@ -145,7 +145,8 @@ public class UserController implements PasswordEncoder{
     	List<UserResponse> responseList = new ArrayList<UserResponse>();
 		
 		for(int i = list.size()-1; i >-1;i--) {
-			responseList.add(new UserResponse(list.get(i).getName(),list.get(i).getEmail(),list.get(i).getId(),i,list.get(i).getProfile()));
+			responseList.add(new UserResponse(list.get(i).getName(),list.get(i).getEmail(),list.get(i).getId(),i,list.get(i).getProfile(),
+					list.get(i).getUsername(),list.get(i).getSlackKey(),list.get(i).getSlackChannel()));
 		}
 		
     		 return responseList;

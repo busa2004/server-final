@@ -51,8 +51,8 @@ public interface ReportRepository extends JpaRepository<Report, Long> {
 	@Query("SELECT NEW com.douzone.df.payload.Slack(v.userTask.user.slackKey,v.userTask.user.slackChannel) FROM Report v WHERE v.id = ?1")
 	Slack slackFindById(Long reportId);
 
-	@Query("SELECT NEW com.douzone.df.payload.GraphResponse(v.status,count(*) as count) FROM Report v WHERE v.userTask.user.id = ?1 group by v.status")
-	List<GraphResponse> graphFindById(Long id);
+	@Query("SELECT NEW com.douzone.df.payload.GraphResponse(v.status,count(*) as count) FROM Report v WHERE v.userTask.user.id = ?1 AND v.status != ?2 AND v.status != ?3 group by v.status")
+	List<GraphResponse> graphFindById(Long id, Status wait, Status end);
 	
 
 

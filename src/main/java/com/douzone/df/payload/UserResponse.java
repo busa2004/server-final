@@ -6,7 +6,29 @@ public class UserResponse {
 	private Long id;
 	private int key;
 	private String profile;
+	private String username;
+	private String slackKey;
+	private String slackChannel;
 	
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
+	public String getSlackKey() {
+		return slackKey;
+	}
+	public void setSlackKey(String slackKey) {
+		this.slackKey = slackKey;
+	}
+	public String getSlackChannel() {
+		return slackChannel;
+	}
+	public void setSlackChannel(String slackChannel) {
+		this.slackChannel = slackChannel;
+	}
 	public String getProfile() {
 		return profile;
 	}
@@ -45,6 +67,16 @@ public class UserResponse {
 		this.key = key;
 		this.profile= profile;
 	}
-	
+	public UserResponse(String name, String email, Long id, int key,String profile,String username,String slackKey,String slackChannel) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.id = id;
+		this.key = key;
+		this.profile= profile;
+		this.username = username;
+		this.slackKey = slackKey;
+		this.slackChannel = slackChannel;
+	}
 	
 }
