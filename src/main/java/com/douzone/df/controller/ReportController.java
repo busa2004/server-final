@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,8 +31,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.douzone.df.model.Report;
+import com.douzone.df.model.Status;
+import com.douzone.df.payload.Description;
 import com.douzone.df.payload.FileUploadResponse;
 import com.douzone.df.payload.GraphResponse;
+import com.douzone.df.payload.Hold;
+import com.douzone.df.payload.Rate;
 import com.douzone.df.payload.ReportConverterRequest;
 import com.douzone.df.payload.ReportRequest;
 import com.douzone.df.payload.ReportResponse;
@@ -158,5 +163,18 @@ public class ReportController {
 		 
 		 	 return list;
 		 	}
+		 	//반려 정보
+		 	@PostMapping("/hold")
+		    public Hold  hold(@CurrentUser UserPrincipal currentUser) {
+		 		
+		 		List<Rate> rate = reportService.getRate(currentUser.getId()); // 바 그래프
+		 		List<Description> description = reportService.getDescription(currentUser.getId()); 
+		 		List<GraphResponse> graph = reportService.getGraph(currentUser.getId()); //원 그래프
+		 		Collections.reverse(rate);
+		 		Hold hold = new Hold(rate,description,graph); 
+		 	return hold;
+		 
+		 	}
+	 	 
 	 	 
 }

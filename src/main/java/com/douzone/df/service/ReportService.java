@@ -21,7 +21,9 @@ import com.douzone.df.model.Status;
 import com.douzone.df.model.Task;
 import com.douzone.df.model.User;
 import com.douzone.df.model.UserTask;
+import com.douzone.df.payload.Description;
 import com.douzone.df.payload.GraphResponse;
+import com.douzone.df.payload.Rate;
 import com.douzone.df.payload.ReportConverterRequest;
 import com.douzone.df.payload.ReportRequest;
 import com.douzone.df.payload.ReportResponse;
@@ -112,6 +114,13 @@ public class ReportService {
 	public List<GraphResponse> getGraph(Long id) {
 		
 		return reportRepository.graphFindById(id,Status.WAIT,Status.END);
+	}
+	public 	List<Rate> getRate(Long userId) {
+		return reportRepository.RateFindByUserId(userId,PageRequest.of(0,12));
+		
+	}
+	public List<Description> getDescription(Long userId) {
+		return reportRepository.descriptionFindByUserId(userId);
 	}
 	
 	

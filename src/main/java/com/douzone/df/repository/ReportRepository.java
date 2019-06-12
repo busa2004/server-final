@@ -3,6 +3,7 @@ package com.douzone.df.repository;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -14,7 +15,9 @@ import com.douzone.df.model.Report;
 import com.douzone.df.model.Status;
 import com.douzone.df.model.User;
 import com.douzone.df.model.UserTask;
+import com.douzone.df.payload.Description;
 import com.douzone.df.payload.GraphResponse;
+import com.douzone.df.payload.Rate;
 import com.douzone.df.payload.ReportResponse;
 import com.douzone.df.payload.Slack;
 
@@ -51,8 +54,23 @@ public interface ReportRepository extends JpaRepository<Report, Long> {
 	@Query("SELECT NEW com.douzone.df.payload.Slack(v.userTask.user.slackKey,v.userTask.user.slackChannel) FROM Report v WHERE v.id = ?1")
 	Slack slackFindById(Long reportId);
 
-	@Query("SELECT NEW com.douzone.df.payload.GraphResponse(v.status,count(*) as count) FROM Report v WHERE v.userTask.user.id = ?1 AND v.status != ?2 AND v.status != ?3 group by v.status")
+	@Query("SELECT NEW com.douzone.df.payload.GraphResponse(v.status,count(v.status) as count) FROM Report v WHERE v.userTask.user.id = ?1 AND v.status != ?2 AND v.status != ?3 group by v.status "
+			+ "order by v.status desc")
 	List<GraphResponse> graphFindById(Long id, Status wait, Status end);
+	@Query("SELECT \r\n" + 
+			"     NEW com.douzone.df.payload.Rate(DATE_FORMAT(a.createdAt, '%Y-%m') as m, COUNT(b.status) as hold, count(c.status) as progress) \r\n" + 
+			"FROM \r\n" + 
+			"    Report a \r\n" + 
+			"        LEFT OUTER JOIN \r\n" + 
+			"    Report b ON a.createdAt = b.createdAt\r\n" + 
+			"        AND a.status = 'hold'\r\n" + 
+			"   left outer join Report c on a.createdAt = c.createdAt and a.status = 'progress' \r\n" + 
+			"WHERE a.userTask.user.id = ?1 "
+			+
+			"GROUP BY DATE_FORMAT(a.createdAt, '%Y-%m') ORDER BY DATE_FORMAT(a.createdAt, '%Y-%m') desc")
+	List<Rate> RateFindByUserId(Long userId,PageRequest pageRequest);
+	@Query("select NEW com.douzone.df.payload.Description(v.description,count(v.description)) FROM Report v WHERE v.userTask.user.id =?1 AND v.description != '' GROUP BY v.description")
+	List<Description> descriptionFindByUserId(Long userId);
 	
 
 
