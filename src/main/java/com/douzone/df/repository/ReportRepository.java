@@ -69,7 +69,7 @@ public interface ReportRepository extends JpaRepository<Report, Long> {
 			+
 			"GROUP BY DATE_FORMAT(a.createdAt, '%Y-%m') ORDER BY DATE_FORMAT(a.createdAt, '%Y-%m') desc")
 	List<Rate> RateFindByUserId(Long userId,PageRequest pageRequest);
-	@Query("select NEW com.douzone.df.payload.Description(v.description,count(v.description)) FROM Report v WHERE v.userTask.user.id =?1 AND v.description != '' GROUP BY v.description ORDER BY count(v.description)")
+	@Query("select NEW com.douzone.df.payload.Description(v.description,count(v.description)) FROM Report v WHERE v.userTask.user.id =?1 AND v.description != '' GROUP BY v.description ORDER BY count(v.description) desc")
 	List<Description> descriptionFindByUserId(Long userId);
 	
 
