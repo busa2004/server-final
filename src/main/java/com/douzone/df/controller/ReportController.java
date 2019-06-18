@@ -176,5 +176,15 @@ public class ReportController {
 		 
 		 	}
 	 	 
+		 	//반려 정보
+		 	@GetMapping("/getByUserTaskId")
+		    public List<ReportResponse>  getByUserTaskId(Long userTaskId) {
+		 		
+		 		List<ReportResponse> list = reportService.getByUserTaskId(userTaskId); // 바 그래프
+		 	
+		 		
+		 	return list;
+		 
+		 	}
 	 	 
 }

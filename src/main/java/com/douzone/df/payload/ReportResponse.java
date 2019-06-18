@@ -26,6 +26,14 @@ public class ReportResponse {
 		this.status = status;
 		this.fileName = fileName;
 	}
+	public ReportResponse( Long id, String title, String content) {
+		super();
+		
+		this.id = id;
+		this.title = title;
+		this.content = content;
+	
+	}
 	
 	
 	public String getFileName() {

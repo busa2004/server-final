@@ -47,6 +47,7 @@ public class ReportService {
 		 Report report = new Report();
 		 report.setTitle(reportRequest.getTitle());
 		 report.setContent(reportRequest.getContent());
+		 report.setOpen(reportRequest.getOpen());
 		 String fileNameArr="";
 		 if(reportRequest.getFileName()!=null) {
 		 for(String fileName : reportRequest.getFileName()) {
@@ -121,6 +122,10 @@ public class ReportService {
 	}
 	public List<Description> getDescription(Long userId) {
 		return reportRepository.descriptionFindByUserId(userId);
+	}
+	public List<ReportResponse> getByUserTaskId(Long userTaskId) {
+		
+		return reportRepository.getByUserTaskId(userTaskId,PageRequest.of(0,5));
 	}
 	
 	

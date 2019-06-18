@@ -34,11 +34,19 @@ public class Report extends DateAudit{
 	private String fileName;
 	@Enumerated(EnumType.STRING)
 	private Status status;  
+	private Boolean open;
 	
 
 	
 
 	
+	
+	public Boolean getOpen() {
+		return open;
+	}
+	public void setOpen(Boolean open) {
+		this.open = open;
+	}
 	public String getFileName() {
 		return fileName;
 	}
